@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Démarrer - Quentin Guérin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="content-wrapper">
+        <header>
+            <div class="header-left">
+                <a href="index.html" class="Accueil"><h1>Démarrer</h1></a>
+                <div>tile1</div>
+            </div>
+    
+            <div class="header-right">
+                <div class="header-right-text">
+                    <h2>Quentin</h2>
+                    <div>Guérin</div>
+                </div>
+                <img src="/images/quentin.jpg" alt="Photo de profil">
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="tiles-grid">
+                <a href="tile1.html" class="tile" style="background-image: url('/images/bandeau-diplome1.jpg')">
+                    <h3>Formation</h3>
+                    <p>Parcours scolaire</p>
+                </a>
+        
+                <a href="#" class="tile" style="background-image: url('project1.jpg')">
+                    <h3>Titre 2</h3>
+                    <p>Ceci est la description</p>
+                </a>
+        
+                <a href="#" class="tile" style="background-image: url('project1.jpg')">
+                    <h3>Titre 3</h3>
+                    <p>Ceci est la description</p>
+                </a>
+        
+                <a href="#" class="tile" style="background-image: url('project1.jpg')">
+                    <h3>Titre 4</h3>
+                    <p>Ceci est la description</p>
+                </a>
+        
+                <a class="tile5" style="background-image: url('project1.jpg')">
+                    <h3></h3>
+                    <p></p>
+                </a>
+
+                <a href="#" class="tile" id="tile5.5" style="background-image: url('project1.jpg')">
+                    <h3>Titre 5</h3>
+                    <p>Ceci est la description</p>
+                </a>
+
+                <a href="terre.html" class="tile" id="tile6" style="background-image: url('/images/monde.jpg')">
+                    <h3>Titre 6</h3>
+                    <p>Ceci est la description</p>
+                </a>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        document.getElementById('tile6').addEventListener('click', function(event) {
+            event.preventDefault(); // Empêche la redirection immédiate
+
+            const tile = this;
+            tile.style.transition = 'transform 1s ease, opacity 1s ease';
+            tile.style.transform = 'scale(1.5) rotate(10deg)'; // Zoom et rotation
+            tile.style.opacity = '0.5'; // Réduit l'opacité pour un effet de fondu
+
+            setTimeout(() => {
+                window.location.href = tile.href; // Redirige vers terre.html après l'animation
+            }, 1000); // Durée de l'animation en millisecondes
+        });
+    </script>
+
+    <!-- Bouton rond pour revenir à l'accueil -->
+    <a href="index.html" class="round-button"></a>
+
+</body>
+</html>

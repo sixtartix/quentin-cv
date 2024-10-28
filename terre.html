@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Carte Cesium avec Points Géographiques</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.93/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.93/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <style>
+        #cesiumContainer {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        /* Style pour la boîte centrale */
+        .sidebar {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80vh;
+            background-color: #ffffff; /* Couleur de fond blanche */
+            border-radius: 20px; /* Bordures arrondies */
+            border: 10px solid #ccc; /* Bordure grise */
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre douce */
+        }
+        .sidebar-content {
+            padding: 20px;
+            font-family: 'Arial', sans-serif; /* Police plus moderne */
+            color: #333; /* Couleur du texte */
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="cesiumContainer"></div>
+
+    <!-- Boîte latérale -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-content">
+            <span class="close">&times;</span>
+            <div id="sidebarContent"></div>
+        </div>
+    </div>
+
+    <!-- Bouton rond pour revenir à l'accueil -->
+    <a href="index.html" class="round-button"></a>
+
+    <script>
+        // Initialisation de la visionneuse Cesium avec la carte "Natural Earth II"
+        const viewer = new Cesium.Viewer('cesiumContainer', {
+            imageryProvider: new Cesium.TileMapServiceImageryProvider({
+                url: Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII')
+            }),
+            baseLayerPicker: false,
+            navigationHelpButton: false,
+            animation: false,
+            timeline: false,
+            fullscreenButton: false,
+            sceneModePicker: true,
+            homeButton: true,
+            geocoder: false
+        });
+
+        // Fonction pour afficher la boîte latérale
+        function showSidebar(content) {
+            const sidebar = document.getElementById("sidebar");
+            const sidebarContent = document.getElementById("sidebarContent");
+            sidebarContent.innerHTML = content;
+            sidebar.style.display = "block";
+        }
+
+        // Fermer la boîte latérale
+        const sidebar = document.getElementById("sidebar");
+        const closeBtn = document.getElementsByClassName("close")[0];
+        closeBtn.onclick = function() {
+            sidebar.style.display = "none";
+        }
+
+        // Ajout d'un point au centre des États-Unis
+        viewer.entities.add({
+            name: 'États-Unis',
+            position: Cesium.Cartesian3.fromDegrees(-98.5795, 39.8283),
+            billboard: {
+                image: '/images/new-york.jpeg', // Image carrée avec contour
+                width: 30,
+                height: 30
+            },
+            description: `
+                <h2>États-Unis</h2>
+                <img src="new-york.jpeg" alt="États-Unis" style="width:100%;height:auto;">
+                <p>Centre géographique des États-Unis.</p>
+            `
+        });
+
+        // Ajout d'un point au centre du Canada
+        viewer.entities.add({
+            name: 'Canada',
+            position: Cesium.Cartesian3.fromDegrees(-106.3468, 56.1304),
+            point: {
+                pixelSize: 30,
+                color: Cesium.Color.GREEN
+            },
+            description: `
+                <h2>Canada</h2>
+                <img src="https://example.com/canada.jpg" alt="Canada" style="width:100%;height:auto;">
+                <p>Centre géographique du Canada.</p>
+            `
+        });
+
+        // Ajout d'un point au centre de la Croatie
+        viewer.entities.add({
+            name: 'Croatie',
+            position: Cesium.Cartesian3.fromDegrees(15.2, 45.1),
+            point: {
+                pixelSize: 30,
+                color: Cesium.Color.YELLOW
+            },
+            description: `
+                <h2>Croatie</h2>
+                <img src="https://example.com/croatia.jpg" alt="Croatie" style="width:100%;height:auto;">
+                <p>Centre géographique de la Croatie.</p>
+            `
+        });
+
+        // Ajout d'un point pour Venise
+        viewer.entities.add({
+            name: 'Venise',
+            position: Cesium.Cartesian3.fromDegrees(12.3155, 45.4408), // Coordonnées approximatives de Venise
+            point: {
+                pixelSize: 30,
+                color: Cesium.Color.ORANGE
+            },
+            description: `
+                <h2>Venise</h2>
+                <img src="https://example.com/venice.jpg" alt="Venise" style="width:100%;height:auto;">
+                <p>Venise, Italie.</p>
+            `
+        });
+
+        // Ajout d'un point au centre des Pays-Bas
+        viewer.entities.add({
+            name: 'Pays-Bas',
+            position: Cesium.Cartesian3.fromDegrees(5.2913, 52.1326), // Coordonnées approximatives du centre des Pays-Bas
+            point: {
+                pixelSize: 30,
+                color: Cesium.Color.PURPLE
+            },
+            description: `
+                <h2>Pays-Bas</h2>
+                <img src="https://example.com/netherlands.jpg" alt="Pays-Bas" style="width:100%;height:auto;">
+                <p>Centre géographique des Pays-Bas.</p>
+            `
+        });
+
+        // Ajout d'un point au centre du Portugal
+        viewer.entities.add({
+            name: 'Portugal',
+            position: Cesium.Cartesian3.fromDegrees(-8.2245, 39.3999), // Coordonnées approximatives du centre du Portugal
+            point: {
+                pixelSize: 30,
+                color: Cesium.Color.PINK
+            },
+            description: `
+                <h2>Portugal</h2>
+                <img src="https://example.com/portugal.jpg" alt="Portugal" style="width:100%;height:auto;">
+                <p>Centre géographique du Portugal.</p>
+            `
+        });
+
+        // Ajout d'un point pour la Guyane
+        viewer.entities.add({
+            name: 'Guyane',
+            position: Cesium.Cartesian3.fromDegrees(-53.1258, 3.9339), // Coordonnées approximatives du centre de la Guyane
+            point: {
+                pixelSize: 30,
+                color: Cesium.Color.CYAN
+            },
+            description: `
+                <h2>Guyane</h2>
+                <img src="https://example.com/guyane.jpg" alt="Guyane" style="width:100%;height:auto;">
+                <p>Centre géographique de la Guyane.</p>
+            `
+        });
+
+        // Ajout d'un point en Angleterre
+        viewer.entities.add({
+            name: 'Angleterre',
+            position: Cesium.Cartesian3.fromDegrees(-1.1743, 52.3555), // Coordonnées approximatives du centre de l'Angleterre
+            point: {
+                pixelSize: 30,
+                color: Cesium.Color.RED
+            },
+            description: `
+                <h2>Angleterre</h2>
+                <img src="https://example.com/england.jpg" alt="Angleterre" style="width:100px;height:auto;">
+                <p>Centre géographique de l'Angleterre.</p>
+            `
+        });
+
+        // Écouteur d'événements pour les clics sur les entités
+        viewer.screenSpaceEventHandler.setInputAction(function onLeftClick(movement) {
+            const pickedObject = viewer.scene.pick(movement.position);
+            if (Cesium.defined(pickedObject) && Cesium.defined(pickedObject.id)) {
+                showSidebar(pickedObject.id.description);
+            }
+        }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+        // Centrer la vue sur l'Europe lorsque le bouton "Home" est cliqué
+        viewer.homeButton.viewModel.command.beforeExecute.addEventListener(function(commandInfo) {
+            viewer.scene.camera.flyTo({
+                destination: Cesium.Cartesian3.fromDegrees(10.0, 50.0, 19000000.0) // Coordonnées approximatives pour centrer sur l'Europe
+            });
+            commandInfo.cancel = true; // Empêche l'exécution de la commande par défaut
+        });
+
+        // Centrer la vue sur la planète entière
+        viewer.scene.camera.setView({
+            destination: Cesium.Cartesian3.fromDegrees(0.0, 0.0, 20000000.0)
+        });
+    </script>
+</body>
+</html>

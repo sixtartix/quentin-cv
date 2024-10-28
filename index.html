@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Démarrer - Quentin Guérin</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Rendre la tuile tile5.1 invisible sur les écrans plus larges */
+        @media (min-width: 769px) {
+            #tile5\.1 {
+                /* display: none; */
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="content-wrapper">
@@ -45,12 +53,12 @@
                     <p>Ceci est la description</p>
                 </a>
         
-                <a href="#" class="tile" id="tile5" style="background-image: url('project1.jpg')">
+                <a href="#" class="tile" id="tile5_1" style="background-image: url('project1.jpg')">
                     <h3>Titre 5</h3>
                     <p>Ceci est la description</p>
                 </a>
 
-                <a href="#" class="tile" id="tile5_5" style="background-image: url('project1.jpg')">
+                <a href="#" class="tile" id="tile5.5" style="background-image: url('project1.jpg')">
                     <h3>Titre 5</h3>
                     <p>Ceci est la description</p>
                 </a>
@@ -82,38 +90,29 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const tile5 = document.getElementById('tile5');
-            const tile5_5 = document.getElementById('tile5_5');
+            const tile51 = document.getElementById('tile5.1');
 
-            if (window.innerWidth <= 768) { // Vérifie si l'écran est de taille téléphone
-                if (tile5) {
-                    tile5.remove(); // Supprime la tuile tile5 du DOM
-                }
-                if (tile5_5) {
-                    tile5_5.style.display = 'none'; // Masque la tuile tile5.5
-                }
-            } else { // Pour les écrans plus grands
-                if (tile5_5) {
-                    tile5_5.style.display = ''; // Affiche la tuile tile5.5
+            function updateTileVisibility() {
+                if (window.innerWidth <= 768) { // Vérifie si l'écran est de taille téléphone
+                    if (tile5) {
+                        tile5.style.display = 'none'; // Masque la tuile tile5
+                    }
+                    if (tile5_1) {
+                        tile5_1.remove(); // Supprime la tuile tile5.1
+                    }
+                } else { // Pour les écrans plus grands
+                    if (tile5) {
+                        tile5.style.display = ''; // Affiche la tuile tile5
+                    }
+                    // Pas besoin de gérer tile5.1 ici car le CSS s'en charge
                 }
             }
-        });
-    </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tile5 = document.getElementById('tile5');
-            if (tile5 && window.innerWidth <= 768) { // Vérifie si l'écran est de taille téléphone
-                tile5.remove(); // Supprime la tuile du DOM sur les petits écrans
-            }
-        });
-    </script>
+            // Appelle la fonction au chargement de la page
+            updateTileVisibility();
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tile5 = document.getElementById('tile5');
-            if (tile5 && window.innerWidth > 768) { // Vérifie si l'écran est de taille PC
-                tile5.style.display = ''; // Assure que la tuile est visible sur les grands écrans
-            }
+            // Ajoute un écouteur d'événement pour ajuster la visibilité lors du redimensionnement de la fenêtre
+            window.addEventListener('resize', updateTileVisibility);
         });
     </script>
 

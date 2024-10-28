@@ -6,6 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Démarrer - Quentin Guérin</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        @keyframes openApp {
+            0% {
+                transform: scale(0) translate(100vw, 100vh);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(0.5) translate(50vw, 50vh);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1) translate(0, 0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes closeApp {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.5) translate(50vw, 50vh);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(0) translate(100vw, 100vh);
+                opacity: 0;
+            }
+        }
+
+        #white-page {
+            display: none;
+            position: fixed;
+            top: 0 ;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: white;
+            z-index: 1000;
+            transform: translate(-50%, -50%);
+            animation: openApp 0.7s ease-out forwards;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,7 +72,7 @@
         <div class="timeline">
             <div class="timeline-year">
                 <h3>2020</h3>
-                <a href="#" class="tile" style="background-image: url('./images/millet.jpg')">
+                <a href="#" class="tile" id="baccalaureat-tile" style="background-image: url('./images/millet.jpg')">
                     <h3>Baccalauréat</h3>
                     <p>Bac scientifique</p>
                 </a>
@@ -53,10 +97,65 @@
             <!-- Contenu principal -->
         </div>
 
-        <!-- Bouton rond pour revenir à l'accueil -->
-        <a href="index.html" class="round-button"></a>
+        <!-- Conteneur pour la page blanche -->
+        <div id="white-page">
+            <img id="close-image" src="./images/millet.jpg" alt="Image" style="position: absolute; top: 20px; right: 20px; width: 100px; height: 100px; border-radius: 8px; cursor: pointer; border: 2px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+        </div>
 
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const baccalaureatTile = document.getElementById('baccalaureat-tile'); // Sélectionnez la tuile "Baccalauréat"
+        const whitePage = document.getElementById('white-page'); // Sélectionnez le conteneur de la page blanche
+        const closeImage = document.getElementById('close-image'); // Sélectionnez l'image cliquable
+
+        // Ajoutez les sélections pour les autres tuiles
+        const btsTile = document.querySelector('.tile[style*="jules-verne.png"]');
+        const butGmpTile = document.querySelector('.tile[style*="iut.png"]');
+
+        function openWhitePage(event, imageUrl) {
+            event.preventDefault(); // Empêche le comportement par défaut du lien
+            whitePage.style.display = 'block'; // Affiche la page blanche
+            whitePage.style.animation = 'openApp 0.7s ease-out forwards'; // Applique l'animation d'ouverture
+            closeImage.src = imageUrl; // Change l'image en haut à droite
+        }
+
+        if (baccalaureatTile) {
+            baccalaureatTile.addEventListener('click', function(event) {
+                openWhitePage(event, './images/millet.jpg');
+            });
+        } else {
+            console.error("Tuile 'Baccalauréat' non trouvée.");
+        }
+
+        if (btsTile) {
+            btsTile.addEventListener('click', function(event) {
+                openWhitePage(event, './images/jules-verne.png');
+            });
+        } else {
+            console.error("Tuile 'BTS' non trouvée.");
+        }
+
+        if (butGmpTile) {
+            butGmpTile.addEventListener('click', function(event) {
+                openWhitePage(event, './images/iut.png');
+            });
+        } else {
+            console.error("Tuile 'BUT GMP' non trouvée.");
+        }
+
+        if (closeImage) {
+            closeImage.addEventListener('click', function() {
+                whitePage.style.animation = 'closeApp 0.7s ease-out forwards'; // Applique l'animation de fermeture
+                setTimeout(() => {
+                    whitePage.style.display = 'none'; // Masque la page blanche après l'animation
+                }, 700); // Correspond à la durée de l'animation
+            });
+        }
+    });
+    </script>
+
+<a href="index.html" class="round-button"></a>
 </body>
 
 </html>

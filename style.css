@@ -249,14 +249,27 @@ header {
     }
 
     .tiles-grid {
+        display: grid;
         grid-template-columns: repeat(2, 1fr); /* Deux colonnes pour les petits écrans */
         gap: 15px;
+        margin-top: 200px; /* Augmente l'espace au-dessus des tuiles */
     }
 
     .tile {
-        width: 120px; /* Réduit la largeur des tuiles */
-        height: 150px; /* Réduit la hauteur des tuiles */
+        width: 140px; /* Augmente légèrement la largeur des tuiles */
+        height: 180px; /* Augmente légèrement la hauteur des tuiles */
         padding: 10px; /* Réduit le padding pour les petits écrans */
+        box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+    }
+
+    .tile h3 {
+        margin: 0; /* Supprime les marges par défaut */
+        text-align: center; /* Centre le texte */
+    }
+
+    .tile p {
+        margin: 20px 0 0 0 0; /* Ajoute une marge supérieure pour descendre la description */
+        text-align: center; /* Centre le texte */
     }
 
     .timeline {
@@ -273,5 +286,9 @@ header {
         height: 70px;
         line-height: 50px;
         font-size: 16px;
+    }
+
+    .tile#tile5 {
+        display: none; /* Masque la tuile uniquement sur les petits écrans */
     }
 }

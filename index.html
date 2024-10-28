@@ -45,12 +45,12 @@
                     <p>Ceci est la description</p>
                 </a>
         
-                <a class="tile5" style="background-image: url('project1.jpg')">
-                    <h3></h3>
-                    <p></p>
+                <a href="#" class="tile" id="tile5" style="background-image: url('project1.jpg')">
+                    <h3>Titre 5</h3>
+                    <p>Ceci est la description</p>
                 </a>
 
-                <a href="#" class="tile" id="tile5.5" style="background-image: url('project1.jpg')">
+                <a href="#" class="tile" id="tile5_5" style="background-image: url('project1.jpg')">
                     <h3>Titre 5</h3>
                     <p>Ceci est la description</p>
                 </a>
@@ -76,6 +76,44 @@
             setTimeout(() => {
                 window.location.href = tile.href; // Redirige vers terre.html après l'animation
             }, 1000); // Durée de l'animation en millisecondes
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tile5 = document.getElementById('tile5');
+            const tile5_5 = document.getElementById('tile5_5');
+
+            if (window.innerWidth <= 768) { // Vérifie si l'écran est de taille téléphone
+                if (tile5) {
+                    tile5.remove(); // Supprime la tuile tile5 du DOM
+                }
+                if (tile5_5) {
+                    tile5_5.style.display = 'none'; // Masque la tuile tile5.5
+                }
+            } else { // Pour les écrans plus grands
+                if (tile5_5) {
+                    tile5_5.style.display = ''; // Affiche la tuile tile5.5
+                }
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tile5 = document.getElementById('tile5');
+            if (tile5 && window.innerWidth <= 768) { // Vérifie si l'écran est de taille téléphone
+                tile5.remove(); // Supprime la tuile du DOM sur les petits écrans
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tile5 = document.getElementById('tile5');
+            if (tile5 && window.innerWidth > 768) { // Vérifie si l'écran est de taille PC
+                tile5.style.display = ''; // Assure que la tuile est visible sur les grands écrans
+            }
         });
     </script>
 

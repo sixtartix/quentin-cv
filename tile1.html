@@ -49,6 +49,20 @@
             transform: translate(-50%, -50%);
             animation: openApp 0.7s ease-out forwards;
         }
+
+        #close-cross {
+            font-size: 24px;
+            color: black;
+            background-color: #ccc;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+        }
     </style>
 </head>
 
@@ -99,6 +113,7 @@
 
         <!-- Conteneur pour la page blanche -->
         <div id="white-page">
+            <div id="close-cross" style="position: absolute; top: 20px; left: 20px; cursor: pointer;">&#10006;</div>
             <img id="close-image" src="./images/millet.jpg" alt="Image" style="position: absolute; top: 20px; right: 20px; width: 100px; height: 100px; border-radius: 8px; cursor: pointer; border: 2px solid #ccc; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
         </div>
 
@@ -112,6 +127,8 @@
         // Ajoutez les sélections pour les autres tuiles
         const btsTile = document.querySelector('.tile[style*="jules-verne.png"]');
         const butGmpTile = document.querySelector('.tile[style*="iut.png"]');
+
+        const closeCross = document.getElementById('close-cross'); // Sélectionnez la croix
 
         function openWhitePage(event, imageUrl) {
             event.preventDefault(); // Empêche le comportement par défaut du lien
@@ -152,10 +169,21 @@
                 }, 700); // Correspond à la durée de l'animation
             });
         }
+
+        if (closeCross) {
+            closeCross.addEventListener('click', function() {
+                whitePage.style.animation = 'closeApp 0.7s ease-out forwards'; // Applique l'animation de fermeture
+                setTimeout(() => {
+                    whitePage.style.display = 'none'; // Masque la page blanche après l'animation
+                }, 700); // Correspond à la durée de l'animation
+            });
+        }
     });
     </script>
 
 <a href="index.html" class="round-button"></a>
 </body>
 
+<body id="body-tile1"></body>
+</body>
 </html>

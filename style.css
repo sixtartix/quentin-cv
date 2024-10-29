@@ -14,6 +14,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
 }
 
 header {
@@ -207,8 +208,8 @@ header {
     bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px; /* Taille du bouton */
-    height: 100px; /* Taille du bouton */
+    width: 50px; /* Taille du bouton */
+    height: 50px; /* Taille du bouton */
     background-color: black;
     color: white;
     border-radius: 50%;
@@ -229,6 +230,7 @@ header {
 @media (max-width: 768px) {
     .content-wrapper {
         padding: 10px;
+        text-decoration: none;
     }
 
     header {
@@ -291,6 +293,10 @@ header {
     .tile#tile5 {
         display: none; /* Masque la tuile uniquement sur les petits écrans */
     }
+
+    #body-tile1 {
+        padding-bottom: 300px;
+    }
 }
 
 #baccalaureat-tile {
@@ -326,3 +332,34 @@ header {
     top: 20px;
     right: 20px;
 }
+
+.round-button {
+    position: fixed;
+    bottom: 20px;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px; /* Taille du bouton */
+    height: 50px; /* Taille du bouton */
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 70px; /* Centrage vertical du texte */
+    font-size: 18px; /* Taille de la police */
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    border: 2px solid white; /* Contour blanc */
+}
+
+body {
+    overflow-y: hidden; /* Désactive le défilement vertical */
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto; /* Réactive le défilement vertical sur les appareils mobiles */
+    }
+}
+
